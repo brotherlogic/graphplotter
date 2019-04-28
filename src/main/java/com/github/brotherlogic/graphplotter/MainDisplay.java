@@ -19,7 +19,7 @@ import godiscogs.Godiscogs.Label;
 
 public class MainDisplay extends JFrame {
 
-    ImagePanel mainPanel;
+    GraphPanel mainPanel;
 
     public MainDisplay(Getter g) {
         mainPanel = new GraphPanel();

@@ -31,8 +31,4 @@ public class Getter {
         }
         return response;
     }
-
-    public void setScore(int value) throws Exception {
-        System.err.println("SETTING SCORE " + value);
-    }
 }
