@@ -27,6 +27,10 @@ public class Runner extends JavaServer {
 
     MainDisplay mainDisplay;
 
+    public Runner() {
+        super.setTime(10,19);
+    }
+
     public static void main(String[] args) throws Exception {
         Option optionHost = OptionBuilder.withLongOpt("server").hasArg().withDescription("Hostname of server")
                 .create("s");
