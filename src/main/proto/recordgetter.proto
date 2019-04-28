@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package recordgetter;
+
+import "recordcollection.proto";
+
+message Empty {}
+
+message DiskScore {
+  int32 instance_id = 1;
+  int32 disk_number = 2;
+  int64 score_date = 3;
+  int32 score = 4;
+}
+
+message State {
+  recordcollection.Record current_pick = 1;
+  repeated DiskScore scores = 2;
+}
+
+message GetRecordRequest {
+  bool refresh = 1;
+}
+
+message GetRecordResponse {
+  recordcollection.Record record = 1;
+  int32 num_listens = 2;
+  int32 disk = 3;
+}
+
+service RecordGetter {
+  rpc GetRecord(GetRecordRequest) returns (GetRecordResponse);
+  rpc Listened(recordcollection.Record) returns (recordcollection.Record);
+  rpc Force(Empty) returns (Empty);
+}

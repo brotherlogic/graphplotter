@@ -1,0 +1,135 @@
+syntax = "proto3";
+
+package recordcollection;
+
+import "godiscogs.proto";
+
+message RecordCollection {
+  repeated Record records = 1;
+  repeated godiscogs.Release wants = 2;
+}
+
+// This is a record that we own
+message Record {
+  godiscogs.Release release = 1;
+  ReleaseMetadata metadata = 2;
+}
+
+// This is the discogs token
+message Token {
+  string token = 1;
+}
+
+enum Purgatory {
+    UNKNOWN = 0;
+    NO_GOAL_FOLDER = 1;
+    NEEDS_STOCK_CHECK = 2;
+
+    ALL_GOOD = 3;
+}
+
+message ReleaseMetadata {
+	// The date the release was added
+	int64 date_added = 1;
+
+	// The date the release was last updated
+	int64 date_updated = 2;
+
+  // The relative path to the release
+  string file_path = 3;
+
+	// The cost of the record in pence
+	int32 cost = 4;
+
+	// If we have other copies of this
+	bool others = 5;
+
+	// The id of the release this relates to
+	int32 id = 6;
+
+	// The data we last recached this release
+	int64 last_cache = 7;
+
+    enum Category {
+          UNKNOWN = 0;
+    PURCHASED = 1;
+    UNLISTENED = 2;
+    STAGED = 3;
+
+    PRE_HIGH_SCHOOL = 25;
+    HIGH_SCHOOL = 26;
+    
+    PRE_FRESHMAN = 4;
+    FRESHMAN = 5;
+    
+    PRE_SOPHMORE = 12;
+    SOPHMORE = 13;
+
+    PRE_GRADUATE = 10;
+    GRADUATE = 11;
+    
+    PRE_POSTDOC = 8;
+    POSTDOC = 9;
+    
+    PRE_PROFESSOR = 6;
+    PROFESSOR = 7;
+    
+    PREPARE_TO_SELL = 19;
+    ASSESS_FOR_SALE = 24;
+    STAGED_TO_SELL = 14;
+    RIP_THEN_SELL = 21;
+    SOLD = 15;
+    SOLD_ARCHIVE = 22;
+    LISTED_TO_SELL = 23;
+    
+    DIGITAL = 16;
+    GOOGLE_PLAY = 18;
+    
+    ASSESS = 17;
+    NO_LABELS = 20;
+    }
+    Category category = 8;
+
+    // The folder this record should be placed in
+    int32 goal_folder = 9;
+
+    // If a record is dirty, it needs to send updates to discogs
+    bool dirty = 10;
+
+    // The folder this record should move to
+    int32 move_folder = 11;
+
+    // This is the rating that should be set on the record
+    int32 set_rating = 12;
+
+    // The time we were last Synced
+    int64 last_sync_time= 13;
+
+    Purgatory purgatory = 14;
+
+    // The last time we did a stock check
+    int64 last_stock_check = 15;
+}
+
+// A request to get some records
+message GetRecordsRequest {
+  Record filter = 1;
+}
+
+// A list of records in response
+message GetRecordsResponse {
+  repeated Record records = 1;
+}
+
+message UpdateRecordRequest {
+  Record update = 1;
+}
+
+message UpdateRecordsResponse {
+  Record updated = 1;
+}
+
+service RecordCollectionService {
+  rpc GetRecords(GetRecordsRequest) returns (GetRecordsResponse) {};
+  rpc UpdateRecord(UpdateRecordRequest) returns (UpdateRecordsResponse) {};
+}
