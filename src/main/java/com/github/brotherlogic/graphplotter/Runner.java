@@ -26,7 +26,6 @@ import recordgetter.Recordgetter.GetRecordResponse;
 public class Runner extends JavaServer {
 
     MainDisplay mainDisplay;
-    Release oldRelease = null;
 
     public static void main(String[] args) throws Exception {
         Option optionHost = OptionBuilder.withLongOpt("server").hasArg().withDescription("Hostname of server")
@@ -68,41 +67,9 @@ public class Runner extends JavaServer {
         mainDisplay.setVisible(true);
     }
 
-    private void refreshDisplay() {
-        while (true) {
-            try {
-                String maybeImage = "";
-                if (oldRelease != null) {
-                    for (Image img : oldRelease.getImagesList()) {
-                        if (img.getUri().length() > 0) {
-                            maybeImage = img.getUri();
-                        }
-                    }
-                }
-                GetRecordResponse r = new Getter(getHost("recordgetter"), getPort("recordgetter")).getRecord(
-                        oldRelease != null && (oldRelease.getImagesCount() == 0 || maybeImage.length() == 0));
-                if (mainDisplay != null) {
-                    if (r.getRecord().getMetadata().getCategory() == Category.STAGED_TO_SELL)
-			mainDisplay.showRelease(r.getRecord().getRelease(), Color.RED, r.getDisk());
-		    else if (r.getRecord().getMetadata().getCategory() == Category.PRE_HIGH_SCHOOL)
-			mainDisplay.showRelease(r.getRecord().getRelease(), Color.BLUE, r.getDisk());
-		    else if (r.getRecord().getMetadata().getCategory() == Category.PRE_FRESHMAN)
-			mainDisplay.showRelease(r.getRecord().getRelease(), Color.YELLOW, r.getDisk());
-                    else
-                        mainDisplay.showRelease(r.getRecord().getRelease(), Color.GREEN, r.getDisk());
-                    oldRelease = r.getRecord().getRelease();
-                }
-            } catch (Exception e) {
-                // Ignore errors here
-                e.printStackTrace();
-            }
 
-            try {
-                Thread.sleep(5 * 1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+    public void refreshDisplay() {
+        // Do nothing
     }
 
     @Override
