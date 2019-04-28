@@ -10,7 +10,7 @@ public class GraphPanel extends JPanel {
         int w = this.getWidth();
 
         // Draw the axes
-        g.drawLine(h-10,5, h-10, w-10);
-        g.drawLine(h-10,5,5,5);
+        g.drawLine(w-10,5, w-10, h-10);
+        g.drawLine(w-10,5,5,5);
     }
 }
