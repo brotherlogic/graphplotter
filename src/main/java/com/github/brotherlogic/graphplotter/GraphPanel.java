@@ -38,5 +38,7 @@ public class GraphPanel extends JPanel {
                System.out.println("Point = " + lastPointY);
            }
         }
+
+        System.err.println("Drawn");
     }
 }
