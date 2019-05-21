@@ -32,8 +32,6 @@ public class Runner extends JavaServer {
     }
 
     public static void main(String[] args) throws Exception {
-        System.out.println("Starting");
-
         Option optionHost = OptionBuilder.withLongOpt("server").hasArg().withDescription("Hostname of server")
                 .create("s");
         Options options = new Options();
