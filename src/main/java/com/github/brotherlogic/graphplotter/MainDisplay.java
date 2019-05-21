@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -24,8 +25,8 @@ public class MainDisplay extends JFrame {
 
     public MainDisplay(Getter g) {
         mainPanel = new GraphPanel();
-        mainPanel.addLine(new StraightLine(LocalDateTime.parse("2019-01-01T00:00:00").toEpochSecond(),
-                LocalDateTime.parse("2020-01-01T00:00:00").toEpochSecond(),
+        mainPanel.addLine(new StraightLine(LocalDateTime.parse("2019-01-01T00:00:00").toEpochSecond(ZoneOffset.UTC),
+                LocalDateTime.parse("2020-01-01T00:00:00").toEpochSecond(ZoneOffset.UTC),
                 0,200));
         mainPanel.setLayout(new BorderLayout());
         mainPanel.setPreferredSize(new Dimension(800, 480));

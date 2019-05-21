@@ -3,6 +3,7 @@ package com.github.brotherlogic.graphplotter;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,8 +25,8 @@ public class GraphPanel extends JPanel {
 
         //Paint all the lines
         for (Line l :lines){
-           long startTime = LocalDateTime.parse("2019-01-01T00:00:00").toEpochSecond();
-           long endTime = LocalDateTime.parse("2020-01-01T00:00:00").toEpochSecond();
+           long startTime = LocalDateTime.parse("2019-01-01T00:00:00").toEpochSecond(ZoneOffset.UTC);
+           long endTime = LocalDateTime.parse("2020-01-01T00:00:00").toEpochSecond(ZoneOffset.UTC);
 
            int lastPointY = 0;
            for(int x = 1; x < w-10; x++){
