@@ -27,7 +27,7 @@ public class MainDisplay extends JFrame {
         mainPanel = new GraphPanel();
         mainPanel.addLine(new StraightLine(LocalDateTime.parse("2019-01-01T00:00:00").toEpochSecond(ZoneOffset.UTC),
                 LocalDateTime.parse("2020-01-01T00:00:00").toEpochSecond(ZoneOffset.UTC),
-                0,200));
+                0,470));
         mainPanel.setLayout(new BorderLayout());
         mainPanel.setPreferredSize(new Dimension(800, 480));
         this.add(mainPanel, BorderLayout.CENTER);
