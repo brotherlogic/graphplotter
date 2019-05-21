@@ -2,6 +2,9 @@ package com.github.brotherlogic.graphplotter;
 
 import javax.swing.JPanel;
 import java.awt.Graphics;
+import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
 
 public class GraphPanel extends JPanel {
 
