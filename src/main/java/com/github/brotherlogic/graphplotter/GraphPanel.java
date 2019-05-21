@@ -16,6 +16,7 @@ public class GraphPanel extends JPanel {
     }
 
     public void paint(Graphics g) {
+        System.out.println("Drawing");
         int h = this.getHeight();
         int w = this.getWidth();
 
