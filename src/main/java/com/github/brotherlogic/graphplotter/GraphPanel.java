@@ -34,7 +34,7 @@ public class GraphPanel extends JPanel {
                long timeP = ((endTime-startTime)/(w-15))*x+startTime;
                int value = l.getValue(timeP);
                g.drawLine(x-1+5,h-10-lastPointY, x+5, h-10-value);
-               lastPointY = h-10-value;
+               lastPointY = value;
                System.out.println("Point = " + lastPointY);
            }
         }
