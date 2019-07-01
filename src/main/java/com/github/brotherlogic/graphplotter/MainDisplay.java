@@ -32,4 +32,6 @@ public class MainDisplay extends JFrame {
         mainPanel.setPreferredSize(new Dimension(800, 480));
         this.add(mainPanel, BorderLayout.CENTER);
     }
+
+
 }
