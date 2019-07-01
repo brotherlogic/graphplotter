@@ -21,7 +21,7 @@ import godiscogs.Godiscogs.Image;
 import godiscogs.Godiscogs.Release;
 import recordcollection.Recordcollection.ReleaseMetadata.Category;
 import io.grpc.BindableService;
-import recordgetter.Recordgetter.GetRecordResponse;
+import recordcollection.Recordcollection.GetRecordsResponse;
 
 public class Runner extends JavaServer {
 
@@ -73,7 +73,20 @@ public class Runner extends JavaServer {
 
 
     public void refreshDisplay() {
-        // Do nothing
+            while(true) {
+                try {
+                    GetRecordsResponse r = new Getter(getHost("recordcollection"), getPort("recordcollection")).getRecords();
+                    System.out.println("Got " + r.getRecordsList().size());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    Thread.sleep(5 * 1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
     }
 
     @Override

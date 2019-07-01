@@ -4,9 +4,9 @@ import java.util.concurrent.TimeUnit;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
-import recordgetter.RecordGetterGrpc;
-import recordgetter.Recordgetter;
-import recordgetter.Recordgetter.GetRecordResponse;
+import recordcollection.RecordCollectionServiceGrpc;
+import recordcollection.Recordcollection.GetRecordsResponse;
+import recordcollection.Recordcollection;
 
 public class Getter {
 
@@ -18,15 +18,12 @@ public class Getter {
         port = p;
     }
 
-    public GetRecordResponse getRecord(boolean refresh) throws Exception {
-        GetRecordResponse response = null;
+    public GetRecordsResponse getRecords() throws Exception {
+        GetRecordsResponse response = null;
         if (host != null) {
             ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext(true).build();
-            RecordGetterGrpc.RecordGetterBlockingStub client = RecordGetterGrpc.newBlockingStub(channel);
-            if (refresh) {
-                System.err.println("Request refresh!");
-            }
-            response = client.withDeadlineAfter(5, TimeUnit.SECONDS).getRecord(Recordgetter.GetRecordRequest.newBuilder().setRefresh(refresh).build());
+            RecordCollectionServiceGrpc.RecordCollectionServiceBlockingStub client = RecordCollectionServiceGrpc.newBlockingStub(channel);
+            response = client.withDeadlineAfter(5, TimeUnit.SECONDS).getRecords(Recordcollection.GetRecordsRequest.newBuilder().build());
             channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
         }
         return response;
