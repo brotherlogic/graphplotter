@@ -11,4 +11,8 @@ public class IssuePanel extends JPanel {
     public IssuePanel() {
         this.add(label);
     }
+
+    public void setIssue(String issue){
+        label.setText(issue);
+    }
 }

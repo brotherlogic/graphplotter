@@ -26,6 +26,7 @@ import recordcollection.Recordcollection.GetRecordsResponse;
 public class Runner extends JavaServer {
 
     MainDisplay mainDisplay;
+    IssuePanel issuePanel = new IssuePanel();
 
     public Runner() {
         super.setTime(10,19);
@@ -60,7 +61,7 @@ public class Runner extends JavaServer {
 
     private void displayScreen() {
         if (mainDisplay == null) {
-            mainDisplay = new MainDisplay(new Getter(getHost("recordgetter"), getPort("recordgetter")));
+            mainDisplay = new MainDisplay(new Getter(getHost("recordgetter"), getPort("recordgetter")), issuePanel);
         }
 
         mainDisplay.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,6 +78,9 @@ public class Runner extends JavaServer {
                 try {
                     GetRecordsResponse r = new Getter(getHost("recordcollection"), getPort("recordcollection")).getRecords();
                     System.out.println("Got " + r.getRecordsList().size());
+
+                    String issue = new Getter(getHost("githubcard"), getPort("githubcard")).getLatestIssue();
+                    issuePanel.setIssue(issue);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
