@@ -22,6 +22,7 @@ import godiscogs.Godiscogs.Label;
 public class MainDisplay extends JFrame {
 
     GraphPanel mainPanel;
+    IssuePanel issuePanel;
 
     public MainDisplay(Getter g) {
         mainPanel = new GraphPanel();
@@ -31,6 +32,9 @@ public class MainDisplay extends JFrame {
         mainPanel.setLayout(new BorderLayout());
         mainPanel.setPreferredSize(new Dimension(800, 480));
         this.add(mainPanel, BorderLayout.CENTER);
+
+        issuePanel = new IssuePanel();
+        this.add(issuePanel, BorderLayout.SOUTH);
     }
 
 
