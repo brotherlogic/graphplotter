@@ -1,0 +1,79 @@
+syntax = "proto3";
+
+package githubcard;
+
+message Token {
+	string token = 1;
+}
+
+message Silence {
+  string silence = 1;
+  string origin = 2;
+}
+
+message Config {
+  repeated Silence silences = 1;
+  repeated string jobs_of_interest = 2;
+  string externalIP = 3;
+}
+
+message Issue {
+  string title = 1;
+  string body = 2;
+  string service = 3;
+  int32 number = 4;
+  
+  enum IssueState {
+    OPEN = 0;
+    CLOSED = 1;
+  }
+  IssueState state = 5;
+  
+  bool sticky = 6;
+
+  enum Origin {
+    UNKNOWN = 0;
+    FROM_WEB = 1;
+    FROM_RECEIEVER = 2;
+  }
+  Origin origin = 7;
+}
+
+message IssueList {
+  repeated Issue issues = 1;
+}
+
+message SilenceRequest {
+  enum SilenceState {
+    UNKNOWN = 0;
+    SILENCE = 1;
+    UNSILENCE = 2;
+  }
+  string silence = 1;
+  string origin = 3;
+  SilenceState state = 2;
+}
+
+message SilenceResponse {}
+
+message GetAllRequest {
+  bool latest_only = 1;
+}
+
+message GetAllResponse {
+  repeated Issue issues = 1;
+}
+
+message RegisterRequest {
+  string job = 1;
+}
+
+message RegisterResponse {}
+
+service Github {
+  rpc AddIssue(Issue) returns (Issue) {};
+  rpc Get(Issue) returns (Issue) {};
+  rpc GetAll(GetAllRequest) returns (GetAllResponse) {};
+  rpc Silence(SilenceRequest) returns (SilenceResponse) {};
+  rpc RegisterJob(RegisterRequest) returns (RegisterResponse) {};
+}
