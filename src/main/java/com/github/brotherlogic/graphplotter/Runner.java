@@ -82,6 +82,7 @@ public class Runner extends JavaServer {
                     String issue = new Getter(getHost("githubcard"), getPort("githubcard")).getLatestIssue();
                     issuePanel.setIssue(issue);
                 } catch (Exception e) {
+                    issuePanel.setIssue(e.getMessage());
                     e.printStackTrace();
                 }
 
