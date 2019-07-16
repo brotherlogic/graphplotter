@@ -37,6 +37,9 @@ message Issue {
     FROM_RECEIEVER = 2;
   }
   Origin origin = 7;
+    int64 date_added = 8;
+
+  string url = 9;
 }
 
 message IssueList {
