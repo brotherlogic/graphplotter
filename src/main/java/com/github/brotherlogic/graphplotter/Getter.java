@@ -40,7 +40,11 @@ public class Getter {
 
             GithubGrpc.GithubBlockingStub client = GithubGrpc.newBlockingStub(channel);
 	    Issue issue =  client.withDeadlineAfter(30, TimeUnit.SECONDS).getAll(Githubcard.GetAllRequest.newBuilder().setLatestOnly(true).build()).getIssues(0);
-	    response = issue.getTitle() + " - " + issue.getUrl();
+	    if (issue.getDateAdded() < System.currentTimeMillis()/1000 - 60*60*2) {
+		response = issue.getTitle() + " - " + issue.getUrl();
+	    } else {
+		response = "All done currently";
+	    }
             channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
         }
         return response;
