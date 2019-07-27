@@ -10,6 +10,7 @@ import recordcollection.Recordcollection;
 import githubcard.GithubGrpc;
 import githubcard.Githubcard.GetAllRequest;
 import githubcard.Githubcard;
+import githubcard.Githubcard.Issue;
 
 public class Getter {
 
@@ -38,7 +39,8 @@ public class Getter {
             ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext(true).build();
 
             GithubGrpc.GithubBlockingStub client = GithubGrpc.newBlockingStub(channel);
-             response = client.withDeadlineAfter(30, TimeUnit.SECONDS).getAll(Githubcard.GetAllRequest.newBuilder().setLatestOnly(true).build()).getIssues(0).getUrl();
+	    Issue issue =  client.withDeadlineAfter(30, TimeUnit.SECONDS).getAll(Githubcard.GetAllRequest.newBuilder().setLatestOnly(true).build()).getIssues(0);
+	    response = issue.getTitle() + " - " + issue.getUrl();
             channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
         }
         return response;
