@@ -28,7 +28,7 @@ public class Getter {
             ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext(true).build();
             RecordCollectionServiceGrpc.RecordCollectionServiceBlockingStub client = RecordCollectionServiceGrpc.newBlockingStub(channel);
             response = client.withMaxInboundMessageSize(1024*1024*1024).withDeadlineAfter(5, TimeUnit.SECONDS).getRecords(Recordcollection.GetRecordsRequest.newBuilder().build());
-            channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+            channel.shutdown().awaitTermination(120, TimeUnit.SECONDS);
         }
         return response;
     }
@@ -45,7 +45,7 @@ public class Getter {
 	    } else {
 		response = "All done currently";
 	    }
-            channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
+            channel.shutdown().awaitTermination(120, TimeUnit.SECONDS);
         }
         return response;
     }
