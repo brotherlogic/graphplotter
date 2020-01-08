@@ -75,13 +75,13 @@ public class Runner extends JavaServer {
 
     public void refreshDisplay() {
             while(true) {
-                try {
+                /*try {
                     GetRecordsResponse r = new Getter(getHost("recordcollection"), getPort("recordcollection")).getRecords();
                     System.out.println("Got " + r.getRecordsList().size());
 
 		} catch (Exception e) {
 		    e.printStackTrace();
-		}
+		    }*/
 		
 		try{
                     String issue = new Getter(getHost("githubcard"), getPort("githubcard")).getLatestIssue();
