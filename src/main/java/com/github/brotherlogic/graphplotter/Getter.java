@@ -36,6 +36,7 @@ public class Getter {
     public String getLatestIssue() throws Exception {
         String response = "No Response";
         if (host != null) {
+	    try{
             ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext(true).build();
 
             GithubGrpc.GithubBlockingStub client = GithubGrpc.newBlockingStub(channel);
@@ -45,7 +46,9 @@ public class Getter {
 	    } else {
 		response = "All done currently";
 	    }
+	    } finally {
             channel.shutdown().awaitTermination(10, TimeUnit.SECONDS);
+	    }
         }
         return response;
     }
