@@ -39,13 +39,13 @@ public class Getter {
             ManagedChannel channel = ManagedChannelBuilder.forAddress(host, port).usePlaintext(true).build();
 
             GithubGrpc.GithubBlockingStub client = GithubGrpc.newBlockingStub(channel);
-	    Issue issue =  client.withDeadlineAfter(30, TimeUnit.SECONDS).getAll(Githubcard.GetAllRequest.newBuilder().setLatestOnly(true).build()).getIssues(0);
+	    Issue issue =  client.withDeadlineAfter(10, TimeUnit.SECONDS).getAll(Githubcard.GetAllRequest.newBuilder().setLatestOnly(true).build()).getIssues(0);
 	    if (issue.getDateAdded() < System.currentTimeMillis()/1000 - 60*60*2) {
 		response = issue.getTitle() + " - " + issue.getUrl();
 	    } else {
 		response = "All done currently";
 	    }
-            channel.shutdown().awaitTermination(120, TimeUnit.SECONDS);
+            channel.shutdown().awaitTermination(10, TimeUnit.SECONDS);
         }
         return response;
     }
